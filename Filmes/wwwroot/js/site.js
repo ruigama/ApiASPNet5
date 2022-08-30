@@ -1,4 +1,4 @@
-﻿const uri = 'https://localhost:5001/filme';
+﻿const uri = 'https://localhost:5001/cliente';
 let todos = [];
 
 function getItems() {
@@ -48,5 +48,22 @@ function _displayCount(itemCount) {
 }
 
 function _displayItems(data) {
-    console.log(data);
-}
+
+    const templateRows = data.map(data => (
+        `
+            <tr>
+                <td>${data.id}</td>
+                <td>${data.nome}</td>
+                <td>${data.email}</td>
+                <td>${data.telefone}</td>
+                <td>${data.cidade}</td>
+                <td>${data.uf}</td>
+            </tr>        
+
+        `    
+    ));
+    document.getElementById("example").innerHTML = templateRows.join('');
+    
+}   
+
+getItems();
