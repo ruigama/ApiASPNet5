@@ -1,9 +1,52 @@
-﻿function JsonPost() {
+﻿editarCliente();
 
-    const utl = "https://localhost:5001/cliente";
+function editarCliente()
+{
+    const urlParams = new URLSearchParams(window.location.search);
+    const myParam = urlParams.get("id");
+    const url = "https://localhost:5001/cliente/" + myParam;
+    console.log(url);
 
-    
+    let parameters = {
+        id: myParam
+    }
+
+    const options = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    };
+
+    fetch(url, options).then(data => {
+        if (data.ok) {
+            return data.json();
+        }
+        else {
+            throw new Error(data.statusText);
+        }
+    }).then(dados => {
+
+        $("#nome").val(dados.nome);
+        $("#cpf").val(dados.cpf);
+        $("#email").val(dados.email);
+        $("#telefone").val(dados.telefone);
+        $("#endereco").val(dados.endereco);
+        $("#numero").val(dados.numero);
+        $("#complemento").val(dados.complemento);
+        $("#cep").val(dados.cep);
+        $("#bairro").val(dados.bairro);
+        $("#cidade").val(dados.cidade);
+        $("#uf").val(dados.uf);
+        $("#observacoes").val(dados.observacoes);
+        $("#id").val(dados.id);
+    }).catch((error) => {
+        alert("Erro ao cadastrar novo cliente", error);
+
+    });
 }
+
+
 
 function inserirCliente()
 {
@@ -37,17 +80,26 @@ function inserirCliente()
         observacoes
     }
 
-    console.log(parametros);
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(parametros),
+    };
 
-    $.ajax({
-        type: 'POST',
-        data: JSON.stringify(parametros),
-        url: "https://localhost:5001/cliente",
-        contentType: "application/json"
+    fetch(url, options).then(data => {
+        if (data.ok) {
+            return data.json;
+        }
+        else {
+            throw new Error(data.statusText);
+        }
+    }).then(dados => {
+        alert("Novo cliente inserido com sucesso!");
+    }).catch((error) => {
+        alert("Erro ao cadastrar novo cliente", error);
         
-    }).done(function (res) {
-        console.log('res', res);
-        // Do something with the result :)
     });
 
 }

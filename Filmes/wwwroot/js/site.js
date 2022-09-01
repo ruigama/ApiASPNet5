@@ -52,7 +52,7 @@ function _displayItems(data) {
     const templateRows = data.map(data => (
         `
             <tr>
-                <td>${data.id}</td>
+                <td><a href='./Cliente/View/novoCliente.html?id=${data.id}'>${data.id}</a></td>
                 <td>${data.nome}</td>
                 <td>${data.email}</td>
                 <td>${data.telefone}</td>
