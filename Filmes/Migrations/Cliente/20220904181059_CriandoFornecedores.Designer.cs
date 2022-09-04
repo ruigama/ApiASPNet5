@@ -2,14 +2,16 @@
 using Clientes.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Filmes.Migrations.Cliente
 {
     [DbContext(typeof(ClienteContext))]
-    partial class ClienteContextModelSnapshot : ModelSnapshot
+    [Migration("20220904181059_CriandoFornecedores")]
+    partial class CriandoFornecedores
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

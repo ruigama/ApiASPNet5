@@ -1,4 +1,5 @@
 ﻿using Clientes.Models;
+using Fornecedores.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Clientes.Data
@@ -11,5 +12,6 @@ namespace Clientes.Data
         }
 
         public DbSet<Cliente> Clientes { get; set; }
+        public DbSet<Fornecedor> Fornecedores { get; set; }
     }
 }
