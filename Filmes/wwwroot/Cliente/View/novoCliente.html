@@ -167,7 +167,7 @@
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             <form class="row g-3" id="novoCliente">
-                <h1 class="h2">Cadastro de novo Cliente</h1>
+                <h1 class="h2" id="paginaAtual"></h1>
                 <div class="col-md-10">
                     <label for="nome" class="form-label">Nome</label>
                     <input type="text" class="form-control" id="nome">
@@ -218,7 +218,8 @@
                     <input hidden id="id" />
                 </div>
                 <div class="col-12">
-                    <button type="button" class="btn btn-primary" onclick="inserirCliente()">Cadastrar</button>
+                    <button id="btnCadastrar" type="button" class="btn btn-primary" onclick="inserirCliente()">Cadastrar</button>
+                    <button id="btnEditar" type="button" class="btn btn-secondary" onclick="edicaoCliente()">Editar</button>
                 </div>
             </form>
         </div>
