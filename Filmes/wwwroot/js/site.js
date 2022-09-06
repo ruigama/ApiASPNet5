@@ -27,24 +27,29 @@ function addItem() {
         .catch(error => console.error('Unable to add item.', error));
 }
 
-function deleteItem(id) {
-    
-}
+function deleteItem(id)
+{
+    const btnExcluir = id;
+    const url = 'https://localhost:5001/cliente/' + btnExcluir;
+    const options = {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    };
 
-function displayEditForm(id) {
-    
-}
+    fetch(url, options).then(data => {
+        if (data.ok) {
+            alert("Cliente deletado com sucesso!");
+            getItems();
+        }
+        else {
+            throw new Error(data.statusText);
+        }
+    }).catch((error) => {
+        alert("Erro ao deletar cliente", error);
 
-function updateItem() {
-    
-}
-
-function closeInput() {
-    
-}
-
-function _displayCount(itemCount) {
-    
+    });
 }
 
 function _displayItems(data) {
@@ -52,12 +57,13 @@ function _displayItems(data) {
     const templateRows = data.map(data => (
         `
             <tr>
-                <td><a href='./Cliente/View/novoCliente.html?id=${data.id}'>${data.id}</a></td>
                 <td>${data.nome}</td>
                 <td>${data.email}</td>
                 <td>${data.telefone}</td>
                 <td>${data.cidade}</td>
                 <td>${data.uf}</td>
+                <td><a href='./Cliente/View/novoCliente.html?id=${data.id}' class="btn btn-warning btn-sm">Editar</a></td>
+                <td><button type="submit" id="btnExcluir" class="btn btn-danger btn-sm" onclick="deleteItem(${data.id})">Excluir</button></td>
             </tr>        
 
         `    
