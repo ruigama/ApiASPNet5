@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Fornecedores.Data.Dtos;
+using Filmes.Data.Dtos.FornecedorDto;
 using Fornecedores.Models;
 
 namespace Filmes.Profiles

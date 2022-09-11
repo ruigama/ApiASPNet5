@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Fornecedores.Data.Dtos
+namespace Filmes.Data.Dtos.FornecedorDto
 {
-    public class UpdateFornecedorDto
+    public class CreateFornecedorDto
     {
         [Required(ErrorMessage = "O nome é obrigatório")]
         public string Nome { get; set; }

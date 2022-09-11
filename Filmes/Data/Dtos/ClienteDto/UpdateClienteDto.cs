@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Clientes.Data.Dtos
+namespace Filmes.Data.Dtos.ClienteDto
 {
     public class UpdateClienteDto
     {

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using Clientes.Data.Dtos;
 using Clientes.Models;
+using Filmes.Data.Dtos.ClienteDto;
 
 namespace Clientes.Profiles
 {

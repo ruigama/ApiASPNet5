@@ -4,8 +4,8 @@ using Clientes.Models;
 using System;
 using System.Linq;
 using Clientes.Data;
-using Clientes.Data.Dtos;
 using AutoMapper;
+using Filmes.Data.Dtos.ClienteDto;
 
 namespace Clientes.Controllers
 {

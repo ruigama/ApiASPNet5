@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Clientes.Data;
-using Fornecedores.Data.Dtos;
+using Filmes.Data.Dtos.FornecedorDto;
 using Fornecedores.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
