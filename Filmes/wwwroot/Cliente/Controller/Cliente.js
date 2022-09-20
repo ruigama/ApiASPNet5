@@ -1,175 +1,74 @@
-﻿editarCliente();
+﻿const uri = 'https://localhost:5001/cliente';
+let todos = [];
 
-function editarCliente()
-{
-    const urlParams = new URLSearchParams(window.location.search);
-    const myParam = urlParams.get("id");
-    const url = "https://localhost:5001/cliente/" + myParam;
+function getItems() {
+    fetch(uri)
+        .then(response => response.json())
+        .then(data => _displayItems(data))
+        .catch(error => console.error('Unable to get items.', error));
 
-    $("#btnCadastrar").show();
-    $("#btnEditar").hide();
-
-    if (myParam != null) {
-
-        $("#btnCadastrar").hide();
-        $("#btnEditar").show();
-
-        const options = {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        };
-
-        fetch(url, options).then(data => {
-            if (data.ok) {
-                return data.json();
-            }
-            else {
-                throw new Error(data.statusText);
-            }
-        }).then(dados => {
-
-            $("#nome").val(dados.nome);
-            $("#cpf").val(dados.cpf);
-            $("#email").val(dados.email);
-            $("#telefone").val(dados.telefone);
-            $("#endereco").val(dados.endereco);
-            $("#numero").val(dados.numero);
-            $("#complemento").val(dados.complemento);
-            $("#cep").val(dados.cep);
-            $("#bairro").val(dados.bairro);
-            $("#cidade").val(dados.cidade);
-            $("#uf").val(dados.uf);
-            $("#observacoes").val(dados.observacoes);
-            $("#id").val(dados.id);
-            $("#paginaAtual").text("Edição de Cliente");
-        }).catch((error) => {
-            alert("Erro ao cadastrar novo cliente", error);
-
-        });
-    }
-    else
-    {
-        $("#paginaAtual").text("Cadastro de Novo Cliente");
-    }
 }
 
+function addItem() {
 
-
-function inserirCliente()
-{
-    const url = "https://localhost:5001/cliente";
-
-    const nome = document.getElementById('nome').value;
-    const cpf = document.getElementById('cpf').value;
-    const email = document.getElementById('email').value;
-    const telefone = document.getElementById('telefone').value;
-    const endereco = document.getElementById('endereco').value;
-    const numero = document.getElementById('numero').value;
-    const complemento = document.getElementById('complemento').value;
-    const cep = document.getElementById('cep').value;
-    const bairro = document.getElementById('bairro').value;
-    const cidade = document.getElementById('cidade').value;
-    const uf = document.getElementById('uf').value;
-    const observacoes = document.getElementById('observacoes').value;
-
-    let parametros = {
-        nome,
-        cpf,
-        email,
-        telefone,
-        endereco,
-        numero,
-        complemento,
-        cep,
-        bairro,
-        cidade,
-        uf,
-        observacoes
-    }
-
-    const options = {
+    fetch(uri, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
         },
-        body: JSON.stringify(parametros),
-    };
-
-    fetch(url, options).then(data => {
-        if (data.ok) {
-            return data.json;
-        }
-        else {
-            throw new Error(data.statusText);
-        }
-    }).then(dados => {
-        alert("Novo cliente inserido com sucesso!");
-        window.location.href = "../../index.html";
-    }).catch((error) => {
-        alert("Erro ao cadastrar novo cliente", error);
-        
-    });
-
+        body: JSON.stringify(item)
+    })
+        .then(response => response.json())
+        .then(() => {
+            getItems();
+            addNameTextbox.value = '';
+        })
+        .catch(error => console.error('Unable to add item.', error));
 }
 
-function edicaoCliente()
-{
-    const nome = document.getElementById('nome').value;
-    const cpf = document.getElementById('cpf').value;
-    const email = document.getElementById('email').value;
-    const telefone = document.getElementById('telefone').value;
-    const endereco = document.getElementById('endereco').value;
-    const numero = document.getElementById('numero').value;
-    const complemento = document.getElementById('complemento').value;
-    const cep = document.getElementById('cep').value;
-    const bairro = document.getElementById('bairro').value;
-    const cidade = document.getElementById('cidade').value;
-    const uf = document.getElementById('uf').value;
-    const observacoes = document.getElementById('observacoes').value;
-    const id = document.getElementById('id').value;
-
-    const url = "https://localhost:5001/cliente/" + id;
-
-    let parametros = {
-        id,
-        nome,
-        cpf,
-        email,
-        telefone,
-        endereco,
-        numero,
-        complemento,
-        cep,
-        bairro,
-        cidade,
-        uf,
-        observacoes
-    }
-
+function deleteItem(id) {
+    const btnExcluir = id;
+    const url = 'https://localhost:5001/cliente/' + btnExcluir;
     const options = {
-        method: 'PUT',
+        method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(parametros),
     };
 
     fetch(url, options).then(data => {
         if (data.ok) {
-            return data.json;
+            alert("Cliente deletado com sucesso!");
+            getItems();
         }
         else {
             throw new Error(data.statusText);
         }
-    }).then(dados => {
-        alert("Cliente editado com sucesso!");
-        window.location.href = "../../index.html";
-
     }).catch((error) => {
-        alert("Erro ao editar cliente", error);
+        alert("Erro ao deletar cliente", error);
 
     });
+}
+
+function _displayItems(data) {
+
+    const templateRows = data.map(data => (
+        `
+            <tr>
+                <td>${data.nome}</td>
+                <td>${data.email}</td>
+                <td>${data.telefone}</td>
+                <td>${data.cidade}</td>
+                <td>${data.uf}</td>
+                <td><a href='../View/novoCliente.html?id=${data.id}' class="btn btn-warning btn-sm">Editar</a></td>
+                <td><button type="submit" id="btnExcluir" class="btn btn-danger btn-sm" onclick="deleteItem(${data.id})">Excluir</button></td>
+            </tr>        
+
+        `
+    ));
+    document.getElementById("example").innerHTML = templateRows.join('');
 
 }
+
+getItems();
